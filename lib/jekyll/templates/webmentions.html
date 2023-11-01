@@ -8,7 +8,7 @@
 <aside class="webmentions"{{ html_proofer_attr }}{% unless webmention_types=="" %} data-webmention-types="{{ webmention_types }}"{% endunless %}>
   <hr>
   <h2>Web mentions</h2>
-  <ol class="webmentions__list">
+  <ol class="webmentions--list">
     {% for webmention in webmentions %}
         {% if webmention.type == "reply" or webmention.type == "post" %}
 
