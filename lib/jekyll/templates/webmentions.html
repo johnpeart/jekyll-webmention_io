@@ -16,12 +16,12 @@
                 <article class="h-cite webmention webmention--{{ webmention.type }}">
                     {% if webmention.author %}
                     <div class="webmention--author p-author h-card">
-                        {% if webmention.pubdate %}On {% if webmention.source %}<a class="webmention__source u-url" href="{{ webmention.source }}" rel="nofollow">{% endif %}<time class="webmention--pubdate dt-published" datetime="{{ webmention.pubdate | date: '%FT%T%:z' }}">{{ webmention.pubdate | date: '%d %B %Y' }}</time>{% if webmention.uri %}</a>{% endif %}, {% endif %}<a class="u-url p-name" href="{{ webmention.author.url }}" rel="nofollow">{{ webmention.author.name }}</strong></a> said
+                        {% if webmention.pubdate %}On {% if webmention.raw.source %}<a class="webmention__source u-url" href="{{ webmention.raw.source }}" rel="nofollow">{% endif %}<time class="webmention--pubdate dt-published" datetime="{{ webmention.pubdate | date: '%FT%T%:z' }}">{{ webmention.pubdate | date: '%d %B %Y' }}</time>{% if webmention.uri %}</a>{% endif %}, {% endif %}<a class="u-url p-name" href="{{ webmention.author.url }}" rel="nofollow">{{ webmention.author.name }}</strong></a> said
                     </div>
                     {% endif %}
                     <div class="webmention--content p-content">
                     {% if webmention.content %}
-                        {{ webmention.content | markdownify }}
+                        {{ webmention.content }}
                     {% else %}
                         {{ webmention.title }}
                     {% endif %}
@@ -35,7 +35,7 @@
             <li id="webmention-{{ webmention.id }}" class="webmentions--item webmention--{{ webmention.type }}">
                 <article class="h-cite webmention webmention--{{ webmention.type }}">
                     <div class="webmention--content p-content webmention--author p-author h-card">
-                        <p><span class="icon {% if webmention.type == "repost" %}share{% elsif webmention.type == "like" %}heart{% elsif webmention.type == "bookmark" -%}bookmark{% endif %}"></span><a class="u-url p-name" href="{{ webmention.author.url }}" rel="nofollow">{{ webmention.author.name }}</a> {% if webmention.type == "repost" %}shared{% elsif webmention.type == "like" %}liked{% elsif webmention.type == "bookmark" -%}bookmarked{% endif %} this post{% if webmention.pubdate %} on {% if webmention.uri %}<a class="webmention__source u-url" href="{{ webmention.uri }}" rel="nofollow">{% endif %}<time class="webmention--pubdate dt-published" datetime="{{ webmention.pubdate | date: '%FT%T%:z' }}">{{ webmention.pubdate | date: '%d %B %Y' }}</time>{% if webmention.uri %}</a>{% endif %}{% endif %}</p>
+                        <p><span class="icon {% if webmention.type == "repost" %}share{% elsif webmention.type == "like" %}heart{% elsif webmention.type == "bookmark" -%}bookmark{% endif %}"></span><a class="u-url p-name" href="{{ webmention.author.url }}" rel="nofollow">{{ webmention.author.name }}</a> {% if webmention.type == "repost" %}shared{% elsif webmention.type == "like" %}liked{% elsif webmention.type == "bookmark" -%}bookmarked{% endif %} this post{% if webmention.pubdate %} on {% if webmention.raw.source %}<a class="webmention__source u-url" href="{{ webmention.raw.source }}" rel="nofollow">{% endif %}<time class="webmention--pubdate dt-published" datetime="{{ webmention.pubdate | date: '%FT%T%:z' }}">{{ webmention.pubdate | date: '%d %B %Y' }}</time>{% if webmention.uri %}</a>{% endif %}{% endif %}</p>
                     </div>
                 </article>
             </li>
