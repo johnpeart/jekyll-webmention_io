@@ -16,7 +16,7 @@
                 <article class="conversation--item--reply webmention webmention--{{ webmention.type }}">
                     {% if webmention.author %}
                     <div class="conversation--item--author">
-                        {% if webmention.pubdate %}On <time datetime="{{ webmention.pubdate | date: '%FT%T%:z' }}">{{ webmention.pubdate | date: '%d %B %Y' }}</time>, {% endif %}<a href="{{ webmention.author.url }}" rel="nofollow">{{ webmention.author.name }}</strong></a> {% if webmention.raw.source %}<a href="{{ webmention.raw.source }}" rel="nofollow">{% endif %}replied{% if webmention.raw.source %}</a>{% endif %}
+                        {% if webmention.pubdate %}On <time datetime="{{ webmention.pubdate | date: '%FT%T%:z' }}">{{ webmention.pubdate | date: '%d %B %Y' }}</time>, {% endif %}<a href="{% if webmention.author.name == 'John Peart' %}from-me{% else %}https://www.johnpe.art{% else %}{{ webmention.author.url }}{% endif %}" rel="nofollow">{{ webmention.author.name }}</strong></a> {% if webmention.raw.source %}<a href="{{ webmention.raw.source }}" rel="nofollow">{% endif %}replied{% if webmention.raw.source %}</a>{% endif %}
                     </div>
                     {% endif %}
                     <div class="conversation--item--content">
