@@ -12,14 +12,14 @@
     {% for webmention in webmentions %}
         {% if webmention.type == "reply" or webmention.type == "post" %}
 
-            <li id="webmention-{{ webmention.id }}" class="conversation--item {% if webmention.author.name == 'John Peart' %}from-me{% else %}from-them{% endif %} webmention--{{ webmention.type }}">
-                <article class="conversation--item--reply p-comment webmention webmention--{{ webmention.type }}">
+            <li id="webmention-{{ webmention.id }}" class="p-comment conversation--item {% if webmention.author.name == 'John Peart' %}from-me{% else %}from-them{% endif %} webmention--{{ webmention.type }}">
+                <article class="conversation--item--reply webmention webmention--{{ webmention.type }}">
                     {% if webmention.author %}
                     <div class="conversation--item--author">
-                        {% if webmention.pubdate %}On <time class="dt-published" datetime="{{ webmention.pubdate | date: '%FT%T%:z' }}">{{ webmention.pubdate | date: '%d %B %Y' }}</time>, {% endif %}<a class="u-url p-name" href="{{ webmention.author.url }}" rel="nofollow">{{ webmention.author.name }}</strong></a> {% if webmention.raw.source %}<a class="u-url" href="{{ webmention.raw.source }}" rel="nofollow">{% endif %}replied{% if webmention.raw.source %}</a>{% endif %}
+                        {% if webmention.pubdate %}On <time datetime="{{ webmention.pubdate | date: '%FT%T%:z' }}">{{ webmention.pubdate | date: '%d %B %Y' }}</time>, {% endif %}<a href="{{ webmention.author.url }}" rel="nofollow">{{ webmention.author.name }}</strong></a> {% if webmention.raw.source %}<a class="u-url" href="{{ webmention.raw.source }}" rel="nofollow">{% endif %}replied{% if webmention.raw.source %}</a>{% endif %}
                     </div>
                     {% endif %}
-                    <div class="conversation--item--content h-cite p-content">
+                    <div class="conversation--item--content">
                     {% if webmention.content %}
                         {{ webmention.content }}
                     {% else %}
@@ -32,12 +32,12 @@
         {% elsif webmention.type == "repost" or webmention.type == "like" or webmention.type == "bookmark" %}
 
             {% if webmention.author %}
-            <li id="webmention-{{ webmention.id }}" class="conversation--item webmention--{{ webmention.type }}">
-                <article class="conversation--item--interaction p-comment webmention webmention--{{ webmention.type }}">
-                    <div class="conversation--item--interaction--content p-content p-author">
+            <li id="webmention-{{ webmention.id }}" class="p-comment conversation--item webmention--{{ webmention.type }}">
+                <article class="conversation--item--interaction webmention webmention--{{ webmention.type }}">
+                    <div class="conversation--item--interaction--content">
                         <p>
                             <span class="interaction-icon {{ webmention.type }}"></span>
-                            <a class="u-url p-name" href="{{ webmention.author.url }}" rel="nofollow">{{ webmention.author.name }}</a> {% if webmention.raw.source %}<a class="u-url" href="{{ webmention.raw.source }}" rel="nofollow">{% endif %}{% if webmention.type == "repost" %}shared{% elsif webmention.type == "like" %}liked{% elsif webmention.type == "bookmark" -%}bookmarked{% endif %}{% if webmention.raw.source %}</a>{% endif %} this post{% if webmention.pubdate %} on <time class="webmention--pubdate dt-published" datetime="{{ webmention.pubdate | date: '%FT%T%:z' }}">{{ webmention.pubdate | date: '%d %B %Y' }}</time>{% endif %}
+                            <a href="{{ webmention.author.url }}" rel="nofollow">{{ webmention.author.name }}</a> {% if webmention.raw.source %}<a class="u-url" href="{{ webmention.raw.source }}" rel="nofollow">{% endif %}{% if webmention.type == "repost" %}shared{% elsif webmention.type == "like" %}liked{% elsif webmention.type == "bookmark" -%}bookmarked{% endif %}{% if webmention.raw.source %}</a>{% endif %} this post{% if webmention.pubdate %} on <time class="webmention--pubdate" datetime="{{ webmention.pubdate | date: '%FT%T%:z' }}">{{ webmention.pubdate | date: '%d %B %Y' }}</time>{% endif %}
                         </p>
                     </div>
                 </article>

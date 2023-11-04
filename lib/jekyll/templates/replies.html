@@ -5,11 +5,11 @@
 <aside class="webmentions"{{ html_proofer_attr }}{% unless webmention_types=="" %} data-webmention-types="{{ webmention_types }}"{% endunless %}>
     <ol class="conversation webmentions--list">
       {% for webmention in webmentions %}
-        <li id="webmention-{{ webmention.id }}" class="conversation--item {% if webmention.author.name == 'John Peart' %}from-me{% else %}from-them{% endif %} webmention--{{ webmention.type }}">
-            <article class="conversation--item--reply p-comment webmention webmention--{{ webmention.type }}">
+        <li id="webmention-{{ webmention.id }}" class="p-comment conversation--item {% if webmention.author.name == 'John Peart' %}from-me{% else %}from-them{% endif %} webmention--{{ webmention.type }}">
+            <article class="conversation--item--reply webmention webmention--{{ webmention.type }}">
                 {% if webmention.author %}
-                <div class="conversation--item--author p-author">
-                    {% if webmention.pubdate %}On <time class="dt-published" datetime="{{ webmention.pubdate | date: '%FT%T%:z' }}">{{ webmention.pubdate | date: '%d %B %Y' }}</time>, {% endif %}<a class="u-url p-name" href="{{ webmention.author.url }}" rel="nofollow">{{ webmention.author.name }}</strong></a> {% if webmention.raw.source %}<a class="u-url" href="{{ webmention.raw.source }}" rel="nofollow">{% endif %}replied{% if webmention.raw.source %}</a>{% endif %}
+                <div class="conversation--item--author">
+                    {% if webmention.pubdate %}On <time datetime="{{ webmention.pubdate | date: '%FT%T%:z' }}">{{ webmention.pubdate | date: '%d %B %Y' }}</time>, {% endif %}<a href="{{ webmention.author.url }}" rel="nofollow">{{ webmention.author.name }}</strong></a> {% if webmention.raw.source %}<a href="{{ webmention.raw.source }}" rel="nofollow">{% endif %}replied{% if webmention.raw.source %}</a>{% endif %}
                 </div>
                 {% endif %}
                 <div class="conversation--item--content h-cite p-content">
