@@ -11,7 +11,7 @@
             {% unless webmention.author.photo %}webmention--no-photo{% endunless %}
             ">
             {% if webmention.author %}
-            <div class="webmention__author p-author h-card">
+            <div class="webmention__author p-author">
               {% capture author_id %}
                 {% if webmention.author.photo %}
                   <img

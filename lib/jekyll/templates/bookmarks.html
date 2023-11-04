@@ -7,7 +7,7 @@
     {% for webmention in webmentions %}
     <li id="webmention-{{ webmention.id }}" class="conversation--item webmention--{{ webmention.type }}">
         <article class="conversation--item--interaction webmention webmention--{{ webmention.type }}">
-            <div class="conversation--item--interaction--content p-content p-author h-card">
+            <div class="conversation--item--interaction--content p-content p-author">
                 <p>
                     <span class="interaction-icon {{ webmention.type }}"></span>
                     <a class="u-url p-name" href="{{ webmention.author.url }}" rel="nofollow">{{ webmention.author.name }}</a> {% if webmention.raw.source %}<a class="u-url" href="{{ webmention.raw.source }}" rel="nofollow">{% endif %}{% if webmention.type == "repost" %}shared{% elsif webmention.type == "like" %}liked{% elsif webmention.type == "bookmark" -%}bookmarked{% endif %}{% if webmention.raw.source %}</a>{% endif %} this post{% if webmention.pubdate %} on <time class="webmention--pubdate dt-published" datetime="{{ webmention.pubdate | date: '%FT%T%:z' }}">{{ webmention.pubdate | date: '%d %B %Y' }}</time>{% endif %}
