@@ -12,8 +12,8 @@
                         On <time datetime="{{ webmention.pubdate | date: '%FT%T%:z' }}">{{ webmention.pubdate | date: '%d %B %Y' }}</time>,
                     {% endif %}
                     {% if webmention.author %}
-                        <a href="{%- if webmention.author.name == 'John Peart' -%}{{ site.url }}{%- else -%}{{ webmention.author.url }}{%- endif -%}" rel="nofollow">
-                            <strong>{{ webmention.author.name }}</strong>
+                        <a href="{%- if webmention.author.name == 'John Peart' -%}https://www.johnpe.art{%- else -%}{{ webmention.author.url }}{%- endif -%}" rel="nofollow">
+                            {{ webmention.author.name }}
                         </a>
                     {% else %}
                         someone
