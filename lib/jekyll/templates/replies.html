@@ -7,11 +7,23 @@
       {% for webmention in webmentions %}
         <li id="webmention-{{ webmention.id }}" class="p-comment conversation--item {% if webmention.author.name == 'John Peart' %}from-me{% else %}from-them{% endif %} webmention--{{ webmention.type }}">
             <article class="conversation--item--reply webmention webmention--{{ webmention.type }}">
-                {% if webmention.author %}
                 <div class="conversation--item--author">
-                    {% if webmention.pubdate %}On <time datetime="{{ webmention.pubdate | date: '%FT%T%:z' }}">{{ webmention.pubdate | date: '%d %B %Y' }}</time>, {% endif %}<a href="{% if webmention.author.name == 'John Peart' %}{{ site.url }}{% else %}{{ webmention.author.url }}{% endif %}" rel="nofollow">{{ webmention.author.name }}</strong></a> {% if webmention.raw.source %}<a href="{{ webmention.raw.source }}" rel="nofollow">{% endif %}replied{% if webmention.raw.source %}</a>{% endif %}
+                    {% if webmention.pubdate %}
+                        On <time datetime="{{ webmention.pubdate | date: '%FT%T%:z' }}">{{ webmention.pubdate | date: '%d %B %Y' }}</time>,
+                    {% endif %}
+                    {% if webmention.author %}
+                        <a href="{%- if webmention.author.name == 'John Peart' -%}{{ site.url }}{%- else -%}{{ webmention.author.url }}{%- endif -%}" rel="nofollow">
+                            <strong>{{ webmention.author.name }}</strong>
+                        </a>
+                    {% else %}
+                        someone
+                    {% endif %}
+                    {% if webmention.raw.source %}
+                      <a href="{{ webmention.raw.source }}" rel="nofollow">replied</a>
+                    {% else %}
+                      replied
+                    {% endif %}
                 </div>
-                {% endif %}
                 <div class="conversation--item--content h-cite p-content">
                 {% if webmention.content %}
                     {{ webmention.content }}
