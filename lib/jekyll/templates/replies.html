@@ -2,38 +2,22 @@
 {%- assign html_proofer_attr = " data-proofer-ignore" -%}
 {%- endif -%}
 {% if webmentions.size > 0 %}
-<aside class="webmentions"{{ html_proofer_attr }}{% unless webmention_types=="" %} data-webmention-types="{{ webmention_types }}"{% endunless %}>
-    <ol class="conversation webmentions--list">
-      {% for webmention in webmentions %}
-        <li id="webmention-{{ webmention.id }}" class="p-comment conversation--item {% if webmention.author.name == 'John Peart' %}from-me{% else %}from-them{% endif %} webmention--{{ webmention.type }}">
-            <article class="conversation--item--reply webmention webmention--{{ webmention.type }}">
-                <div class="conversation--item--author">
-                    {% if webmention.pubdate %}
-                        On <time datetime="{{ webmention.pubdate | date: '%FT%T%:z' }}">{{ webmention.pubdate | date: '%d %B %Y' }}</time>,
-                    {% endif %}
-                    {% if webmention.author %}
-                        <a href="{%- if webmention.author.name == 'John Peart' -%}https://www.johnpe.art{%- else -%}{{ webmention.author.url }}{%- endif -%}" rel="nofollow">
-                            {{ webmention.author.name }}
-                        </a>
-                    {% else %}
-                        someone
-                    {% endif %}
-                    {% if webmention.raw.source %}
-                      <a href="{{ webmention.raw.source }}" rel="nofollow">replied</a>
-                    {% else %}
-                      replied
-                    {% endif %}
-                </div>
-                <div class="conversation--item--content h-cite p-content">
-                {% if webmention.content %}
-                    {{ webmention.content }}
-                {% else %}
-                    {{ webmention.title }}
-                {% endif %}
-                </div>
-            </article>
-        </li>
-      {% endfor %}
-    </ol>
+<aside class="webmentions replies"{{ html_proofer_attr }}{% unless webmention_types=="" %} data-webmention-types="{{ webmention_types }}"{% endunless %}>
+    {% for webmention in webmentions %}
+        <article id="webmention-{{ webmention.id }}" class="speech-bubble {% if webmention.author.name == 'John Peart' %}from-me{% else %}from-them{% endif %} p-comment webmention--{{ webmention.type }}">
+            <aside class="author">
+                {% if webmention.pubdate %}On <time datetime="{{ webmention.pubdate | date: '%FT%T%:z' }}">{{ webmention.pubdate | date: '%d %B %Y' }}</time>,{% endif -%}
+                {% if webmention.author %}<a href="{%- if webmention.author.name == 'John Peart' -%}https://www.johnpe.art{%- else -%}{{ webmention.author.url }}{%- endif -%}" rel="nofollow">{{ webmention.author.name }}</a>{% else %}someone{% endif -%}
+                {% if webmention.raw.source %} <a href="{{ webmention.raw.source }}" rel="nofollow">replied</a>{% else %} replied{% endif %}
+            </aside>
+            <section class="content h-cite p-content">
+            {% if webmention.content %}
+                {{ webmention.content }}
+            {% else %}
+                {{ webmention.title }}
+            {% endif %}
+            </section>
+        </article>
+    {% endfor %}
 </aside>
 {% endif %}
