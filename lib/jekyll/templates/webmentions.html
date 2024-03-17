@@ -26,11 +26,9 @@
             </article>
         {% elsif webmention.type == "repost" or webmention.type == "like" or webmention.type == "bookmark" %}
             {% if webmention.author %}
-            <article id="webmention-{{ webmention.id }}" class="p-comment conversation--item webmention--{{ webmention.type }}">
-                <section class="conversation--item--interaction--content">
-                    <p><span class="interaction-icon {{ webmention.type }}"></span>
-                        <a href="{{ webmention.author.url }}" rel="nofollow">{{ webmention.author.name }}</a> {% if webmention.raw.source %}<a class="u-url" href="{{ webmention.raw.source }}" rel="nofollow">{% endif %}{% if webmention.type == "repost" %}shared{% elsif webmention.type == "like" %}liked{% elsif webmention.type == "bookmark" -%}bookmarked{% endif %}{% if webmention.raw.source %}</a>{% endif %} this post{% if webmention.pubdate %} on <time class="webmention--pubdate" datetime="{{ webmention.pubdate | date: '%FT%T%:z' }}">{{ webmention.pubdate | date: '%d %B %Y' }}</time>{% endif %}</p>
-                </section>
+            <article id="webmention-{{ webmention.id }}" class="interaction action {{ webmention.type }} p-comment">
+                <p><span class="interaction-icon {{ webmention.type }}"></span>
+                <a href="{{ webmention.author.url }}" rel="nofollow">{{ webmention.author.name }}</a> {% if webmention.raw.source %}<a class="u-url" href="{{ webmention.raw.source }}" rel="nofollow">{% endif %}{% if webmention.type == "repost" %}shared{% elsif webmention.type == "like" %}liked{% elsif webmention.type == "bookmark" -%}bookmarked{% endif %}{% if webmention.raw.source %}</a>{% endif %} this post{% if webmention.pubdate %} on <time class="webmention--pubdate" datetime="{{ webmention.pubdate | date: '%FT%T%:z' }}">{{ webmention.pubdate | date: '%d %B %Y' }}</time>{% endif %}</p>
             </article>
             {% endif %}
         {% endif %}
