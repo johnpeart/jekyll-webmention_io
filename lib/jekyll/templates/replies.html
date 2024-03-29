@@ -11,11 +11,13 @@
                 {% if webmention.raw.source %} <a href="{{ webmention.raw.source }}" rel="nofollow">replied</a>{% else %} replied{% endif %}
             </aside>
             <section class="content h-cite p-content">
-            {% if webmention.content %}
-                {{ webmention.content }}
-            {% else %}
-                {{ webmention.title }}
-            {% endif %}
+                <div class="text">
+                  {% if webmention.content %}
+                    {{ webmention.content }}
+                  {% else %}
+                    {{ webmention.title }}
+                  {% endif %}
+                </div>
             </section>
         </article>
     {% endfor %}
