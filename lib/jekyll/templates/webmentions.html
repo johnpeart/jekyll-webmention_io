@@ -26,7 +26,7 @@
                     </div>
                 </section>
             </article>
-        {% elsif webmention.type == "repost" or webmention.type == "like" or webmention.type == "bookmark" %}
+        {% elsif webmention.type != "reply" or webmention.type != "post" %}
             {% if webmention.author %}
             <article id="webmention-{{ webmention.id }}" class="interaction action {{ webmention.type }} p-comment">
                 <p><span class="interaction-icon {{ webmention.type }}"></span>
