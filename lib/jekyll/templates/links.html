@@ -2,24 +2,14 @@
 {%- assign html_proofer_attr = " data-proofer-ignore" -%}
 {%- endif -%}
 {% if webmentions.size > 0 %}
-<aside class="webmentions replies"{{ html_proofer_attr }}{% unless webmention_types=="" %} data-webmention-types="{{ webmention_types }}"{% endunless %}>
+<aside class="interactions actions {{ webmention.type }}s"{{ html_proofer_attr }}>
     {% for webmention in webmentions %}
-        <article id="webmention-{{ webmention.id }}" class="speech-bubble {% if webmention.author.name == 'John Peart' %}from-me{% else %}from-them{% endif %} p-comment webmention--{{ webmention.type }}">
-            <aside class="author">
-                {% if webmention.pubdate %}On <time datetime="{{ webmention.pubdate | date: '%FT%T%:z' }}">{{ webmention.pubdate | date: '%d %B %Y' }}</time>,{% endif %}
-                {% if webmention.author %}<a href="{%- if webmention.author.name == 'John Peart' -%}https://www.johnpe.art{%- else -%}{{ webmention.author.url }}{%- endif -%}" class="link-secondary" rel="nofollow">{{ webmention.author.name }}</a> {% else %}someone {% endif %}
-                {% if webmention.raw.source %}<a href="{{ webmention.raw.source }}" class="link-secondary" rel="nofollow">{% endif %}{% if webmention.type == "reply" %}replied{% else %}wrote{% endif %}{% if webmention.raw.source %}</a>{% endif %}
-            </aside>
-            <section class="content h-cite p-content">
-                <div class="text">
-                  {% if webmention.content %}
-                    {{ webmention.content }}
-                  {% else %}
-                    {{ webmention.title }}
-                  {% endif %}
-                </div>
-            </section>
-        </article>
+        {% if webmention.author %}
+            <article id="webmention-{{ webmention.id }}" class="interaction action {{ webmention.type }} p-comment">
+                <p><span class="interaction-icon {{ webmention.type }}"></span>
+                <a href="{{ webmention.author.url }}" class="link-secondary" rel="nofollow">{{ webmention.author.name }}</a> {% if webmention.raw.source %}<a class="u-url link-secondary" href="{{ webmention.raw.source }}" rel="nofollow">{% endif %}{% if webmention.type == "repost" %}shared{% elsif webmention.type == "like" %}liked{% elsif webmention.type == "bookmark" -%}bookmarked{% elsif webmention.type =="link" %}linked to{% elsif webmention.type == "post" %}wrote about{% else %}interacted with{% endif %}{% if webmention.raw.source %}</a>{% endif %} this post{% if webmention.pubdate %} on <time class="webmention--pubdate" datetime="{{ webmention.pubdate | date: '%FT%T%:z' }}">{{ webmention.pubdate | date: '%d %B %Y' }}</time>{% endif %}</p>
+            </article>
+        {% endif %}
     {% endfor %}
 </aside>
 {% endif %}

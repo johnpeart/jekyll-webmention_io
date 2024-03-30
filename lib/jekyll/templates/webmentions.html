@@ -9,7 +9,7 @@
     <hr>
     <h2>Web mentions</h2>
     {% for webmention in webmentions %}
-        {% if webmention.type == "reply" or webmention.type == "post" or webmention.type == "link" %}
+        {% if webmention.type == "reply" or webmention.type == "post" %}
             <article id="webmention-{{ webmention.id }}" class="speech-bubble {% if webmention.author.name == 'John Peart' %}from-me{% else %}from-them{% endif %} p-comment webmention--{{ webmention.type }}">
                 <aside class="author">
                     {% if webmention.pubdate %}On <time datetime="{{ webmention.pubdate | date: '%FT%T%:z' }}">{{ webmention.pubdate | date: '%d %B %Y' }}</time>,{% endif %}
@@ -26,7 +26,7 @@
                     </div>
                 </section>
             </article>
-        {% elsif webmention.type != "reply" or webmention.type != "post" or webmention.type != "link" %}
+        {% elsif webmention.type != "reply" or webmention.type != "post" %}
             {% if webmention.author %}
             <article id="webmention-{{ webmention.id }}" class="interaction action {{ webmention.type }} p-comment">
                 <p><span class="interaction-icon {{ webmention.type }}"></span>
