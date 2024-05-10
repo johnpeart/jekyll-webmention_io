@@ -7,13 +7,42 @@
         <article id="webmention-{{ webmention.id }}" class="speech-bubble {% if webmention.author.name == 'John Peart' %}from-me{% else %}from-them{% endif %} p-comment webmention--{{ webmention.type }}">
             <aside class="author">
                 {% if webmention.pubdate %}On <time datetime="{{ webmention.pubdate | date: '%FT%T%:z' }}">{{ webmention.pubdate | date: '%d %B %Y' }}</time>,{% endif %}
-                {% if webmention.author %}<a href="{%- if webmention.author.name == 'John Peart' -%}https://www.johnpe.art{%- else -%}{{ webmention.author.url }}{%- endif -%}" class="link-secondary" rel="nofollow">{{ webmention.author.name }}</a> {% else %}someone {% endif %}
-                {% if webmention.raw.source %}<a href="{{ webmention.raw.source }}" class="link-secondary" rel="nofollow">{% endif %}{% if webmention.type == "reply" %}replied{% else %}wrote{% endif %}{% if webmention.raw.source %}</a>{% endif %}
+                {% if webmention.author -%}
+                    
+                    {% if webmention.author.name == 'John Peart' %}
+                    <a href="https://www.johnpe.art" class="link-secondary" rel="nofollow">John Peart</a> 
+                    {% elsif webmention.author.name != "" %}
+                    <a href="{{ webmention.author.url }}" class="link-secondary" rel="nofollow">{{ webmention.author.name }}</a>
+                    {% else %}
+                    someone
+                    {% endif %}
+                    
+                {% else %}
+                    someone
+                {% endif %}
+    
+                {% if webmention.raw.source -%}<a href="{{ webmention.raw.source }}" class="link-secondary" rel="nofollow">{%- endif -%}
+                    
+                {%- if webmention.type == "reply" -%}
+                    replied
+                {%- elsif webmention.type == "link" -%}
+                    linked to this post and wrote
+                {% else %}
+                    wrote
+                {%- endif -%}
+                
+                {%- if webmention.raw.source -%}</a>{%- endif %}
             </aside>
             <section class="content h-cite p-content">
                 <div class="text">
                   {% if webmention.content %}
-                    {{ webmention.content }}
+                    {% assign contentLength = webmention.content | number_of_words %}
+                    {% if contentLength > 50 %}
+                        {{ webmention.content | markdownify | truncatewords: 50, "..." }} 
+                        {% if webmention.raw.source -%}<p><a href="{{ webmention.raw.source }}" class="link-secondary" rel="nofollow" title="Go to {% if webmention.author.name != '' %}{{ webmention.author.name }}'s{% else %}the{% endif %} original post to read the full content">Read more</a></p>{%- endif %}
+                    {% else %}
+                        {{ webmention.content }}
+                    {% endif %}
                   {% else %}
                     {{ webmention.title }}
                   {% endif %}

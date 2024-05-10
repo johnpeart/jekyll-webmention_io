@@ -1,2 +1,2 @@
 {% capture webmention_types %}{{ types | join: ',' }}{% endcapture %}
-<span class="interaction-count interaction-count--{{ webmention_types }}"{% unless webmention_types == '' %} data-webmention-types="{{ webmention_types }}"{% endunless %}><span class="interaction-icon {{ webmention_types }}"></span>{{ count }}</span>
+<span class="interaction-count {{ webmention_types | replace: ',', ' ' }}"{% unless webmention_types == '' %} data-webmention-types="{{ webmention_types | replace: ',', ' ' }}"{% endunless %}><span class="interaction-icon {{ webmention_types | replace: ',', ' ' }}"></span>{{ count }}</span>
