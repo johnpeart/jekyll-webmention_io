@@ -41,7 +41,7 @@
                     <div class="text">
                       {% if webmention.content %}
                         {% assign contentLength = webmention.content | number_of_words %}
-                        {% if contentLength > 50 %}
+                        {% if contentLength > 100 %}
                             {{ webmention.content | markdownify | truncatewords: 50, "…" }} 
                             {% if webmention.raw.source -%}<p><a href="{{ webmention.raw.source }}" class="link-secondary" rel="nofollow" title="Go to {% if webmention.author.name != '' %}{{ webmention.author.name }}'s{% else %}the{% endif %} original post to read the full content">Read more</a></p>{%- endif %}
                         {% else %}
